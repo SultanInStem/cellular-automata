@@ -18,9 +18,8 @@ class Canvas:
             temp_row = []
             for col in range(0, COLS):
                 pos = (row * cell_width, col * cell_height)
-                temp_row.append(Cell((), False, cell_size))
+                temp_row.append(Cell(pos, False, cell_size))
             self.grid.append(temp_row)    
-
 
 
     def handle_events(self): 
@@ -33,6 +32,11 @@ class Canvas:
 
     def render(self): 
         self.screen.fill((0,0,0))
+
+
+        for row in range(0, ROWS): 
+            for col in range(0, COLS):
+                self.grid[row][col].draw(self.screen)
 
         pygame.display.flip()
         self.clock.tick(self.fps)
