@@ -8,3 +8,7 @@ class Cell:
     def draw(self, screen):
         if self.is_alive: 
             pygame.draw.rect(screen, CELL_COLOR, (self.pos[0], self.pos[1], self.size[0], self.size[1]))
+    def die(self): 
+        self.is_alive = False
+    def resurrect(self): 
+        self.is_alive = True

@@ -2,7 +2,7 @@ import pygame
 import sys 
 import random
 from cell import Cell
-from config import BG_COLOR, CELL_COLOR, ROWS, COLS, SCREEN_SIZE
+from config import BG_COLOR, ROWS, COLS, SCREEN_SIZE
 class Canvas: 
     def __init__(self): 
         pygame.init()
@@ -11,6 +11,7 @@ class Canvas:
         self.clock = pygame.time.Clock()
         self.fps = 30
         self.running = True
+        self.is_paused = False
         self.grid = []
         cell_height = SCREEN_SIZE[1] // ROWS
         cell_width = SCREEN_SIZE[0] // COLS
@@ -19,8 +20,7 @@ class Canvas:
             temp_row = []
             for c in range(0, COLS):
                 pos = (r * cell_width, c * cell_height)
-                is_alive = random.randint(0,1)
-                temp_row.append(Cell(pos, is_alive == 1, cell_size))
+                temp_row.append(Cell(pos, False, cell_size))
             self.grid.append(temp_row)    
         
 
@@ -31,7 +31,9 @@ class Canvas:
                 self.running = False
 
     def update(self): 
-        pass 
+        if self.is_pause: pass
+
+
 
     def render(self): 
         self.screen.fill(BG_COLOR)
