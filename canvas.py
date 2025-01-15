@@ -1,7 +1,7 @@
 import pygame 
 import sys 
 from cell import Cell
-from config import ROWS, COLS, SCREEN_SIZE
+from config import ROWS, COLS, SCREEN_SIZE, BG_COLOR, CELL_COLOR
 class Canvas: 
     def __init__(self, size): 
         pygame.init()
@@ -31,11 +31,12 @@ class Canvas:
         pass 
 
     def render(self): 
-        self.screen.fill((0,0,0))
+        self.screen.fill(BG_COLOR)
 
 
         for row in range(0, ROWS): 
             for col in range(0, COLS):
+                print(self.grid[row][col])
                 self.grid[row][col].draw(self.screen)
 
         pygame.display.flip()
