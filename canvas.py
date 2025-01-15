@@ -33,11 +33,10 @@ class Canvas:
                 ### if the game is paused, resurrect a cell at the mouse position
                 mouse_pos = pygame.mouse.get_pos()
                 ### modulate the positions to get array index of the cell 
-                ## FINISH UP WORKING ON THIS !!!
                 row_index = (mouse_pos[1] // self.cell_height) % ROWS
                 col_index = (mouse_pos[0] // self.cell_width) % COLS
                 self.grid[row_index][col_index].resurrect()
-                
+
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]: 
                 self.is_paused = not self.is_paused
