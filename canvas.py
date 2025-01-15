@@ -19,7 +19,7 @@ class Canvas:
         for r in range(0, ROWS): 
             temp_row = []
             for c in range(0, COLS):
-                pos = (r * self.cell_width, c * self.cell_height)
+                pos = (c * self.cell_width, r * self.cell_height)
                 temp_row.append(Cell(pos, False, cell_size))
             self.grid.append(temp_row)    
         
@@ -34,7 +34,10 @@ class Canvas:
                 mouse_pos = pygame.mouse.get_pos()
                 ### modulate the positions to get array index of the cell 
                 ## FINISH UP WORKING ON THIS !!!
-                self.grid[mouse_pos[1] % ROWS][mouse_pos[0] % COLS].resurrect()
+                row_index = (mouse_pos[1] // self.cell_height) % ROWS
+                col_index = (mouse_pos[0] // self.cell_width) % COLS
+                self.grid[row_index][col_index].resurrect()
+                
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]: 
                 self.is_paused = not self.is_paused
