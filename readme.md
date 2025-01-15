@@ -18,3 +18,6 @@ This project simulates a **Cellular Automaton** with simple rules for cell evolu
 ## How to Run
 
 1. Clone this repository to your local machine.
+
+``` bash 
+git clone git@github.com:SultanInStem/cellular-automata.git
