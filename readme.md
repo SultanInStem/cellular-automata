@@ -21,3 +21,9 @@ This project simulates a **Cellular Automaton** with simple rules for cell evolu
 
 ``` bash 
 git clone git@github.com:SultanInStem/cellular-automata.git
+``` 
+
+2. Activate env 
+``` bash 
+source env/bin/activate
+```
