@@ -12,3 +12,5 @@ class Cell:
         self.is_alive = False
     def resurrect(self): 
         self.is_alive = True
+    def is_alive(self): 
+        return self.is_alive

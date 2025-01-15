@@ -8,7 +8,7 @@ class Canvas:
         self.screen = pygame.display.set_mode(SCREEN_SIZE)
         pygame.display.set_caption("Cellular Automata")
         self.clock = pygame.time.Clock()
-        self.fps = 30
+        self.fps = 60
         self.running = True
         self.is_paused = True
         self.grid = []
@@ -26,16 +26,6 @@ class Canvas:
 
     def handle_events(self): 
         for event in pygame.event.get(): 
-            if event.type == pygame.QUIT: 
-                self.running = False
-            elif event.type == pygame.MOUSEBUTTONDOWN and self.is_paused: 
-                ### if the game is paused, resurrect a cell at the mouse position
-                mouse_pos = pygame.mouse.get_pos()
-                ### modulate the positions to get array index of the cell 
-                row_index = (mouse_pos[1] // self.cell_height) % ROWS
-                col_index = (mouse_pos[0] // self.cell_width) % COLS
-                self.grid[row_index][col_index].resurrect()
-
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]: 
                 self.is_paused = not self.is_paused
@@ -45,10 +35,39 @@ class Canvas:
                 for i in range(0, len(self.grid)): 
                     for j in range(0, len(self.grid[i])): 
                         self.grid[i][j].die() 
+            if event.type == pygame.QUIT: 
+                self.running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN and self.is_paused == True: 
+                ### if the game is paused, resurrect a cell at the mouse position
+                mouse_pos = pygame.mouse.get_pos()
+                ### modulate the positions to get array index of the cell 
+                row_index = (mouse_pos[1] // self.cell_height) % ROWS
+                col_index = (mouse_pos[0] // self.cell_width) % COLS
+                self.grid[row_index][col_index].resurrect()
+
 
     def update(self): 
-        if self.is_paused:
-            pass
+        if self.is_paused: return
+
+        for r in range(0, ROWS):
+            for c in range(0, COLS): 
+                neighbors = []
+                if r - 1 >= 0: neighbors.append(self.grid[r - 1][c])
+                if r + 1 < ROWS: neighbors.append(self.grid[r + 1][c])
+                if c - 1 >= 0: neighbors.append(self.grid[r][c - 1])
+                if c + 1 < COLS: neighbors.append(self.grid[r][c + 1])
+                if r - 1 >= 0 and c - 1 >= 0: neighbors.append(self.grid[r - 1][c - 1])
+                if r - 1 >= 0 and c + 1 < COLS: neighbors.append(self.grid[r - 1][c + 1])
+                if r + 1 < ROWS and c - 1 >= 0: neighbors.append(self.grid[r + 1][c - 1])
+                if r + 1 < ROWS and c + 1 < COLS: neighbors.append(self.grid[r + 1][c + 1])
+                alive = 0
+                for n in neighbors:
+                    if n.is_alive: alive += 1
+                if alive < 2: self.grid[r][c].die()
+                elif alive > 3: self.grid[r][c].die()
+                elif alive == 3: self.grid[r][c].resurrect()
+                
+
 
 
     def render(self): 
