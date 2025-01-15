@@ -39,6 +39,12 @@ class Canvas:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]: 
                 self.is_paused = not self.is_paused
+            elif keys[pygame.K_r]:
+                ### Reset the game
+                self.is_paused = True 
+                for i in range(0, len(self.grid)): 
+                    for j in range(0, len(self.grid[i])): 
+                        self.grid[i][j].die() 
 
     def update(self): 
         if self.is_paused:
