@@ -1,6 +1,5 @@
 import pygame 
 import sys 
-import random
 from cell import Cell
 from config import BG_COLOR, ROWS, COLS, SCREEN_SIZE
 class Canvas: 
