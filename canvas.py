@@ -9,6 +9,9 @@ class Canvas:
         pygame.display.set_caption("Cellular Automata")
         self.clock = pygame.time.Clock()
         self.fps = 60
+        self.GEN_FPS = 2 
+        self.action_interval = self.fps // self.GEN_FPS
+        self.frame_counter = 0
         self.running = True
         self.is_paused = True
         self.grid = []
@@ -48,31 +51,33 @@ class Canvas:
 
     def update(self): 
         if self.is_paused: return
-
-        for r in range(0, ROWS):
-            for c in range(0, COLS): 
-                neighbors = []
-                if r - 1 >= 0: neighbors.append(self.grid[r - 1][c])
-                if r + 1 < ROWS: neighbors.append(self.grid[r + 1][c])
-                if c - 1 >= 0: neighbors.append(self.grid[r][c - 1])
-                if c + 1 < COLS: neighbors.append(self.grid[r][c + 1])
-                if r - 1 >= 0 and c - 1 >= 0: neighbors.append(self.grid[r - 1][c - 1])
-                if r - 1 >= 0 and c + 1 < COLS: neighbors.append(self.grid[r - 1][c + 1])
-                if r + 1 < ROWS and c - 1 >= 0: neighbors.append(self.grid[r + 1][c - 1])
-                if r + 1 < ROWS and c + 1 < COLS: neighbors.append(self.grid[r + 1][c + 1])
-                alive = 0
-                for n in neighbors:
-                    if n.is_alive: alive += 1
-                if alive < 2: self.grid[r][c].die()
-                elif alive > 3: self.grid[r][c].die()
-                elif alive == 3: self.grid[r][c].resurrect()
+        if self.frame_counter >= self.action_interval: 
+            self.frame_counter = 0
+            for r in range(0, ROWS):
+                for c in range(0, COLS): 
+                    neighbors = []
+                    if r - 1 >= 0: neighbors.append(self.grid[r - 1][c])
+                    if r + 1 < ROWS: neighbors.append(self.grid[r + 1][c])
+                    if c - 1 >= 0: neighbors.append(self.grid[r][c - 1])
+                    if c + 1 < COLS: neighbors.append(self.grid[r][c + 1])
+                    if r - 1 >= 0 and c - 1 >= 0: neighbors.append(self.grid[r - 1][c - 1])
+                    if r - 1 >= 0 and c + 1 < COLS: neighbors.append(self.grid[r - 1][c + 1])
+                    if r + 1 < ROWS and c - 1 >= 0: neighbors.append(self.grid[r + 1][c - 1])
+                    if r + 1 < ROWS and c + 1 < COLS: neighbors.append(self.grid[r + 1][c + 1])
+                    alive = 0
+                    for n in neighbors:
+                        if n.is_alive: alive += 1
+                    if alive < 2: self.grid[r][c].die()
+                    elif alive > 3: self.grid[r][c].die()
+                    elif alive == 3: self.grid[r][c].resurrect()
                 
 
 
 
     def render(self): 
         self.screen.fill(BG_COLOR)
-
+        self.frame_counter += 1
+        
         for row in range(0, ROWS): 
             for col in range(0, COLS):
                 self.grid[row][col].draw(self.screen)
