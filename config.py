@@ -1,3 +1,3 @@
-ROWS = 50 
-COLS = 50 
+ROWS = 10
+COLS = 10 
 SCREEN_SIZE = (1200, 800)

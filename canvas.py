@@ -1,6 +1,8 @@
 import pygame 
 import sys 
-from config import ROWS, COLS
+from cell import Cell
+from config import ROWS, COLS, SCREEN_SIZE
+from globals import to_math_coords, to_screen_coords
 class Canvas: 
     def __init__(self, size): 
         pygame.init()
@@ -10,9 +12,14 @@ class Canvas:
         self.fps = 30
         self.running = True
         self.grid = []
+        cell_height = ROWS // SCREEN_SIZE[1]
+        cell_width = COLS // SCREEN_SIZE[0]
+        cell_size = (cell_height, cell_width)
         for row in range(0, ROWS): 
-            for col in range(0, COLS): 
-                pass
+            temp_row = []
+            for col in range(0, COLS):
+                temp_row.append(Cell((), False, cell_size))
+            self.grid.append(temp_row)    
 
 
 
