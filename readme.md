@@ -23,7 +23,11 @@ This project simulates a **Cellular Automaton** with simple rules for cell evolu
 git clone git@github.com:SultanInStem/cellular-automata.git
 ``` 
 
-2. Activate env 
+2. Activate env (MacOs)
 ``` bash 
 source env/bin/activate
+``` 
+2. Activate env (Windows)
+``` bash 
+.\env\Scripts\activate
 ```
