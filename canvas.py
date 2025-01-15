@@ -1,25 +1,28 @@
 import pygame 
 import sys 
+import random
 from cell import Cell
-from config import ROWS, COLS, SCREEN_SIZE, BG_COLOR, CELL_COLOR
+from config import BG_COLOR, CELL_COLOR, ROWS, COLS, SCREEN_SIZE
 class Canvas: 
-    def __init__(self, size): 
+    def __init__(self): 
         pygame.init()
-        self.screen = pygame.display.set_mode(size)
+        self.screen = pygame.display.set_mode(SCREEN_SIZE)
         pygame.display.set_caption("Cellular Automata")
         self.clock = pygame.time.Clock()
         self.fps = 30
         self.running = True
         self.grid = []
-        cell_height = ROWS // SCREEN_SIZE[1]
-        cell_width = COLS // SCREEN_SIZE[0]
+        cell_height = SCREEN_SIZE[1] // ROWS
+        cell_width = SCREEN_SIZE[0] // COLS
         cell_size = (cell_height, cell_width)
-        for row in range(0, ROWS): 
+        for r in range(0, ROWS): 
             temp_row = []
-            for col in range(0, COLS):
-                pos = (row * cell_width, col * cell_height)
-                temp_row.append(Cell(pos, False, cell_size))
+            for c in range(0, COLS):
+                pos = (r * cell_width, c * cell_height)
+                is_alive = random.randint(0,1)
+                temp_row.append(Cell(pos, is_alive == 1, cell_size))
             self.grid.append(temp_row)    
+        
 
 
     def handle_events(self): 
@@ -33,10 +36,8 @@ class Canvas:
     def render(self): 
         self.screen.fill(BG_COLOR)
 
-
         for row in range(0, ROWS): 
             for col in range(0, COLS):
-                print(self.grid[row][col])
                 self.grid[row][col].draw(self.screen)
 
         pygame.display.flip()
