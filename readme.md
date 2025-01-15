@@ -31,3 +31,7 @@ source env/bin/activate
 ``` bash 
 .\env\Scripts\activate
 ```
+3. Run the simulation 
+``` bash 
+python3 main.py
+```
