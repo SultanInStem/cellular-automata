@@ -3,7 +3,7 @@
 This project simulates a **Cellular Automaton** with simple rules for cell evolution over time. The simulation runs in a grid, where each cell can be in a state (e.g., alive or dead), and its next state is determined based on its neighbors. The simulation allows you to observe how the grid evolves step by step, following specific rules.
 
 ## Demo
-
+![Demo gif](demo.gif)
 
 ## Features
 
